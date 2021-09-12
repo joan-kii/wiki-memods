@@ -18,4 +18,13 @@ const categorySchema = new Schema({
   }]
 });
 
+categorySchema.pre('validate', function() {
+  if (this.name) {
+    this.slug = slugify(this.name, {
+      lower: true,
+      strict: true
+    });
+  }
+})
+
 module.exports = mongoose.model('Category', categorySchema);

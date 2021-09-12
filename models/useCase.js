@@ -22,4 +22,13 @@ const useCaseSchema = new Schema({
   }]
 });
 
+useCaseSchema.pre('validate', function() {
+  if (this.name) {
+    this.slug = slugify(this.name, {
+      lower: true,
+      strict: true
+    });
+  }
+})
+
 module.exports = mongoose.model('Use Case', useCaseSchema);
