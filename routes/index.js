@@ -40,4 +40,9 @@ router.post('/use-case/:slug/update', useCase_controller.useCase_update_post);
 router.get('/use-case/:slug', useCase_controller.useCase_detail);
 router.get('/use-cases', useCase_controller.useCases_list);
 
+// About Route
+router.get('/about', function(req, res, next) {
+  res.render('about');
+});
+
 module.exports = router;

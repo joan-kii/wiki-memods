@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const marked = require('marked');
 const slugify = require('slugify');
+const createDomPurify = require('dompurify');
+const { JSDOM } = require('jsdom'); 
+const dompurify = createDomPurify(new JSDOM().window);
 
 const Schema = mongoose.Schema;
 
@@ -34,6 +37,10 @@ const articleSchema = new Schema({
     required: true,
     unique: true
   },
+  sanitizedHtml: {
+    type: String,
+    required: true
+  },
   category: [{
     type: Schema.Types.ObjectId,
     ref: 'Category',
@@ -52,6 +59,9 @@ articleSchema.pre('validate', function() {
       lower: true,
       strict: true
     });
+  }
+  if (this.markdown) {
+    this.sanitizedHtml = dompurify.sanitize(marked(this.markdown));
   }
 })
 

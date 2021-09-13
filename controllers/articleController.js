@@ -1,8 +1,25 @@
 const Article = require('../models/article');
+const Category = require('../models/category');
+const USeCase = require('../models/useCase');
+
+const async = require('async');
 
 // Display list all Articles
 exports.articles_list = function(req, res, next) {
-  res.send('nothing here yet');
+  async.parallel({
+    articles_count: function(callback) {
+      Article.countDocuments({}, callback);
+    },
+    categories_count: function(callback) {
+      Category.countDocuments({}, callback);
+    },
+    useCases_count: function(callback) {
+      USeCase.countDocuments({}, callback);
+    },
+    function(err, results) {
+      res.render('index', {error: err, data: results});
+    }
+  })
 };
 
 // Display Article Detail
