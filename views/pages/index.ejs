@@ -4,7 +4,16 @@
   <%- include('../partials/head'); %>
 </head>
 <body>
-  <%- include('../partials/topbar'); %>
-  <h1><%= title %></h1>
+  <header>
+    <%- include('../partials/topbar'); %>
+  </header>
+  <main>
+    <div class="container-fluid">
+      <div class="row">
+        <%- include('../partials/sidebar'); %>
+
+      </div>
+    </div>
+  </main>
 </body>
 </html>
