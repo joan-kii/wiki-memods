@@ -1,6 +1,6 @@
 const Article = require('../models/article');
 const Category = require('../models/category');
-const USeCase = require('../models/useCase');
+const UseCase = require('../models/useCase');
 
 const async = require('async');
 const { body, validationResult } = require('express-validator');
@@ -30,7 +30,24 @@ exports.article_detail = function(req, res, next) {
 
 // Display Article create form on GET
 exports.article_create_get = function(req, res, next) {
-  res.send('nothing here yet');
+  async.parallel({
+    category_list: function(callback) {
+      Category.find().exec(callback);
+    },
+    useCases_list: function(callback) {
+      UseCase.find().exec(callback);
+    }
+  }, function(err, result) {
+    if (err) return next(err);
+    res.render('article_form', {
+      title: 'Write an article',
+      article: undefined,
+      errors: undefined,
+      category_list: category_list,
+      useCase_list: useCase_list
+      })
+    }
+  )
 };
 
 // Handle Article create form on POST
