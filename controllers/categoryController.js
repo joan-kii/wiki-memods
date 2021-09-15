@@ -16,7 +16,11 @@ exports.category_detail = function(req, res, next) {
 
 // Display category create form on GET
 exports.category_create_get = function(req, res, next) {
-  res.render('category_form', {title: 'Create a new category'});
+  res.render('category_form', {
+    title: 'Create a new category', 
+    category: undefined,
+    errors: undefined
+  });
 };
 
 // Handle category create form on POST
@@ -36,20 +40,19 @@ exports.category_create_post = [
       description: req.body.description
     });
     if (!errors.isEmpty()) {
-      console.log(errors.array())
       res.render('category_form', {
         title: 'An error occurred while creating a new category', 
         category: category, 
         errors: errors.array()
       });
     } else {
-      Category.findOne({ name: req.body.name,description: req.body.description})
+      Category.findOne({ name: req.body.name, description: req.body.description})
         .exec(function(err, found_category) {
-        if (err) return next(err);
-        if (found_category) {
-          res.redirect(found_category.slug);
-        } else {
-          category.save(function(err) {
+          if (err) return next(err);
+          if (found_category) {
+            res.redirect(found_category.slug);
+          } else {
+            category.save(function(err) {
             if (err) return next(err);
             res.redirect(category.slug);
           })

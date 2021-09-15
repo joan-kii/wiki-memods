@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const Schema = mongoose.Schema;
 
@@ -7,7 +8,7 @@ const useCaseSchema = new Schema({
     type: String,
     required: true,
   },
-  descrption: {
+  description: {
     type: String,
     required: true,
   },

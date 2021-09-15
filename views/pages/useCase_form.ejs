@@ -16,16 +16,16 @@
         </h1>
         <form method="POST" action="" class="p-3 w-50 border rounded">
           <div class="mb-3">
-            <label for="categoryNameInput" class="mb-1 form_label">Category Name</label>
-            <input name="name" type="text" class="form-control" id="categoryNameInput" required=true
-              aria-describedby="nameHelp" value="<%= category === undefined ? '' : category.name %>">
-            <div id="nameHelp" class="form-text">Give the category a meaningful name.</div>
+            <label for="useCaseNameInput" class="mb-1 form_label">Use Case</label>
+            <input name="name" type="text" class="form-control" id="useCaseNameInput" required=true
+              aria-describedby="nameHelp" value="<%= useCase === undefined ? '' : useCase.name %>">
+            <div id="nameHelp" class="form-text">Think of a use case for some mental model.</div>
           </div>
           <div class="mb-3">
-            <label for="categoryDescriptionInput" class="mb-1 form_label">Category Description</label>
-            <input name="description" type="text" class="form-control" id="categoryDescriptionInput" required=true
-              aria-describedby="descriptionHelp" value="<%= category === undefined ? '' : category.description %>">
-            <div id="descriptionHelp" class="form-text">Add a short description.</div>
+            <label for="useCaseDescriptionInput" class="mb-1 form_label">Use Case Description</label>
+            <input name="description" type="text" class="form-control" id="useCaseDescriptionInput" required=true
+              aria-describedby="descriptionHelp" value="<%= useCase === undefined ? '' : useCase.description %>">
+            <div id="descriptionHelp" class="form-text">Explanation of the use case.</div>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
