@@ -7,20 +7,7 @@ const { body, validationResult } = require('express-validator');
 
 // Display list all Articles
 exports.articles_list = function(req, res, next) {
-  async.parallel({
-    articles_count: function(callback) {
-      Article.countDocuments({}, callback);
-    },
-    categories_count: function(callback) {
-      Category.countDocuments({}, callback);
-    },
-    useCases_count: function(callback) {
-      USeCase.countDocuments({}, callback);
-    },
-    function(err, results) {
-      res.render('index', {error: err, data: results});
-    }
-  })
+  res.send('nothing here yet');
 };
 
 // Display Article Detail
@@ -40,11 +27,11 @@ exports.article_create_get = function(req, res, next) {
   }, function(err, result) {
     if (err) return next(err);
     res.render('article_form', {
-      title: 'Write an article',
+      title: 'New article',
       article: undefined,
       errors: undefined,
-      category_list: category_list,
-      useCase_list: useCase_list
+      category_list: result.category_list,
+      useCases_list: result.useCases_list
       })
     }
   )
