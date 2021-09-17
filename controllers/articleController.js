@@ -44,9 +44,40 @@ exports.article_create_get = function(req, res, next) {
 };
 
 // Handle Article create form on POST
-exports.article_create_post = function(req, res, next) {
-  res.send('nothing here yet');
-};
+exports.article_create_post = [
+  (req, res, next) => {
+    if (!(req.body.category instanceof Array)) {
+      if (req.body.category === 'undefined') {
+        req.body.category = [];
+      } else {
+        req.body.category = new Array(req.body.category);
+      }
+    }
+    next();
+  },
+  (req, res, next) => {
+    if (!(req.body.useCase instanceof Array)) {
+      if (req.body.useCase === 'undefined') {
+        req.body.useCase = [];
+      } else {
+        req.body.useCase = new Array(req.body.useCase);
+      }
+    }
+    next();
+  },
+  body('category'),
+  body('useCase'),
+  body('title', 'Title must not be empty.').trim().isLength({min: 1}).escape(),
+  body('description', 'Description must not be empty.').trim().isLength({min: 1}).escape(),
+  (req, res, next) => {
+    const error = validationResult(req);
+    const article = new Article(
+      {
+        
+      }
+    )
+  }
+];
 
 // Display Article delete form on GET
 exports.article_delete_get = function(req, res, next) {
