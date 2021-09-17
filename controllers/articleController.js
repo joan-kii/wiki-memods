@@ -7,7 +7,13 @@ const { body, validationResult } = require('express-validator');
 
 // Display list all Articles
 exports.articles_list = function(req, res, next) {
-  res.send('nothing here yet');
+  Article.find().exec(function(err, result) {
+    if (err) next(err);
+    res.render('articles_list', {
+      title: 'Articles List',
+      articles_list: result
+    })
+  })
 };
 
 // Display Article Detail

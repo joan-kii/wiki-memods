@@ -6,7 +6,13 @@ const { body, validationResult } = require('express-validator');
 
 // Display list all categories
 exports.categories_list = function(req, res, next) {
-  res.send('nothing here yet');
+  Category.find().exec(function(err, result) {
+    if (err) return next(err);
+    res.render('category_list', {
+      title: 'Category List',
+      category_list: result
+    })
+  })
 };
 
 // Display category Detail

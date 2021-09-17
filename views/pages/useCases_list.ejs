@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %> 
+</head>
+<body>
+  <header>
+    <%- include('../partials/topbar'); %>
+  </header>
+  <div class="container-fluid">
+    <div class="row">
+      <%- include('../partials/sidebar'); %>
+      <div class="col-sm-10 mt-5 mx-auto w-75 d-flex flex-column align-items-center">
+        <h1 class="my-3 fs-2 text-center"><%= title %></h1>
+        <div class="list-group w-50">
+          <% for (const useCase of useCases_list) { %>
+            <a href=<%= useCase.slug %> 
+               class="list-group-item list-group-item-action"><%= useCase.name %></a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

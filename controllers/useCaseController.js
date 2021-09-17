@@ -4,8 +4,14 @@ const async = require('async');
 const { body, validationResult } = require('express-validator');
 
 // Display list all Use Cases
-exports.useCases_list = function(req, res, next) {
-  res.send('nothing here yet');
+exports.useCases_list = function (req, res, next) {
+  UseCase.find().exec(function(err, result) {
+    if (err) return next(err);
+    res.render('useCases_list', { 
+      title: 'Use Cases', 
+      useCases_list: result 
+    });
+  })
 };
 
 // Display use Case Detail
