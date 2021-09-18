@@ -14,12 +14,13 @@
         <h1 class="my-3 fs-2 text-center"><%= title %></h1>
         <div class="list-group w-50">
           <% for (const useCase of useCases_list) { %>
-            <a href=<%= useCase.slug %> 
+            <a href="use-case/<%= useCase.slug %>" 
                class="list-group-item list-group-item-action"><%= useCase.name %></a>
           <% } %>
         </div>
       </div>
     </div>
   </div>
+  <%- include('../partials/footer'); %>
 </body>
 </html>

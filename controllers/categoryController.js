@@ -9,7 +9,7 @@ exports.categories_list = function(req, res, next) {
   Category.find().exec(function(err, result) {
     if (err) return next(err);
     res.render('category_list', {
-      title: 'Category List',
+      title: 'Categories',
       category_list: result
     })
   })

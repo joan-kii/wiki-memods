@@ -17,25 +17,25 @@
         <form method="POST" action="" class="p-3 w-50 border rounded">
             <div class="mb-3">
               <label for="categorySelect" class="mb-1 form_label">Category</label>
-              <select class="form-select" id="categorySelect" name='category' aria-label="Category" aria-describedby="categoryHelp">
+              <select class="form-select" id="categorySelect" name='category' multiple aria-label="Category" aria-describedby="categoryHelp">
                 <% for (const category of category_list) { %>
                   <option value="<%= category.id %>"><%= category.name %></option>
                 <% } %>
               </select>
               <div class="d-flex justify-content-between">
-                <div id="categoryHelp" class="form-text">Choose a category.</div>
+                <div id="categoryHelp" class="form-text">Ctrl+click or Cmd+click to choose more than one category.</div>
                 <a class="mt-1 btn btn-secondary btn-sm" href="/category/create" role="button">Create new category</a>
               </div>
             </div>
             <div class="mb-3">
               <label for="useCaseSelect" class="mb-1 form_label">Use Case</label>
-              <select class="form-select" id="useCaseSelect" name="useCase" aria-label="Use Case" aria-describedby="useCaseHelp">
+              <select class="form-select" id="useCaseSelect" name="useCase" multiple aria-label="Use Case" aria-describedby="useCaseHelp">
                 <% for (const useCase of useCases_list) { %>
                   <option value="<%= useCase.id %>"><%= useCase.name %></option>
                 <% } %>
               </select>
               <div class="d-flex justify-content-between">
-                <div id="useCaseHelp" class="form-text">Choose a use case.</div>
+                <div id="useCaseHelp" class="form-text">Ctrl+click or Cmd+click to choose more than one use case.</div>
                 <a class="mt-1 btn btn-secondary btn-sm" href="/use-case/create" role="button">Create new use case</a>
               </div>
             </div>
@@ -48,17 +48,13 @@
           <div class="mb-3">
             <label for="descriptionInput" class="mb-1 form_label">Description</label>
             <textarea name="description" type="text" class="form-control" id="descriptionInput" required=true
-              aria-describedby="descriptionHelp" value="<%= article === undefined ? '' : article.description %>">
-              <%= article === undefined ? '' : article.description %>
-            </textarea>
+              aria-describedby="descriptionHelp" value="<%= article === undefined ? '' : article.description %>"><%= article === undefined ? '' : article.description %></textarea>
             <div id="descriptionHelp" class="form-text">Write a brief description of the article.</div>
           </div>
           <div class="mb-3">
             <label for="markdownInput" class="mb-1 form_label">Markdown</label>
             <textarea name="markdown" type="text" class="form-control" id="markdownInput" required=true
-              aria-describedby="markdownHelp" rows="5" value="<%= article === undefined ? '' : article.markdown %>">
-              <%= article === undefined ? '' : article.markdown %>
-            </textarea>
+              aria-describedby="markdownHelp" rows="5" value="<%= article === undefined ? '' : article.markdown %>"><%= article === undefined ? '' : article.markdown %></textarea>
             <div id="markdownHelp" class="form-text">
               Use markdown to write the article. You can learm about markdown <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">here</a>.
             </div>
@@ -78,5 +74,6 @@
       </div>
     </div>
   </div>
+  <%- include('../partials/footer'); %>
 </body>
 </html>

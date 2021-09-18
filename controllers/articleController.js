@@ -69,13 +69,23 @@ exports.article_create_post = [
   body('useCase'),
   body('title', 'Title must not be empty.').trim().isLength({min: 1}).escape(),
   body('description', 'Description must not be empty.').trim().isLength({min: 1}).escape(),
+  body('markdown', 'Markdown must not be empty.').trim().isLength({min: 1}).escape(),
   (req, res, next) => {
-    const error = validationResult(req);
+    const errors = validationResult(req);
     const article = new Article(
       {
-        
+        category: req.body.category,
+        useCase: req.body.useCase,
+        title: req.body.title,
+        description: req.body.description,
+        markdown: req.body.markdown
       }
-    )
+    );
+    if (!errors.isEmpty()) return next(err);
+    article.save(function(err) {
+      if (err) return next(err);
+      res.redirect(article.slug);
+    })
   }
 ];
 

@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+const home_controller = require('../controllers/homeController');
 const article_controller = require('../controllers/articleController');
 const category_controller = require('../controllers/categoryController');
 const useCase_controller = require('../controllers/useCaseController');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index');
-});
+router.get('/', home_controller.home_page);
 
 // Article Routes
 router.get('/article/create', article_controller.article_create_get);
