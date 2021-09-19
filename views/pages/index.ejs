@@ -3,7 +3,7 @@
 <head>
   <%- include('../partials/head'); %>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
   <header>
     <%- include('../partials/topbar'); %>
   </header>
@@ -14,7 +14,7 @@
         <%- include('../partials/home', { data: data }); %>
       </div>
     </div>
-    <%- include('../partials/footer'); %>
   </main>
+  <%- include('../partials/footer'); %>
 </body>
 </html>
