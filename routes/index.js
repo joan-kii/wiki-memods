@@ -10,13 +10,13 @@ const useCase_controller = require('../controllers/useCaseController');
 router.get('/', home_controller.home_page);
 
 // Article Routes
-router.get('/article/create', article_controller.article_create_get);
-router.post('/article/create', article_controller.article_create_post);
-router.get('/article/:slug/delete', article_controller.article_delete_get);
-router.post('/article/:slug/delete', article_controller.article_delete_post);
-router.get('/article/:slug/update', article_controller.article_update_get);
-router.post('/article/:slug/update', article_controller.article_update_post);
-router.get('/article/:slug', article_controller.article_detail);
+router.get('/articles/create', article_controller.article_create_get);
+router.post('/articles/create', article_controller.article_create_post);
+router.get('/articles/:slug/delete', article_controller.article_delete_get);
+router.post('/articles/:slug/delete', article_controller.article_delete_post);
+router.get('/articles/:slug/update', article_controller.article_update_get);
+router.post('/articles/:slug/update', article_controller.article_update_post);
+router.get('/articles/:slug', article_controller.article_detail);
 router.get('/articles', article_controller.articles_list);
 
 // Category Routes

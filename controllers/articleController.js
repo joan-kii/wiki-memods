@@ -7,18 +7,25 @@ const { body, validationResult } = require('express-validator');
 
 // Display list all Articles
 exports.articles_list = function(req, res, next) {
-  Article.find().exec(function(err, result) {
-    if (err) next(err);
-    res.render('articles_list', {
-      title: 'Articles',
-      articles_list: result
-    })
-  })
+  Article.find({}, 'title description createdAt updatedAt slug category useCase')
+         .populate('category')
+         .populate('useCase')
+         .exec(function(err, result) {
+            if (err) next(err);
+            res.render('articles_list', {
+              title: 'Articles',
+              articles_list: result
+              })
+            })
 };
 
 // Display Article Detail
 exports.article_detail = function(req, res, next) {
-  res.send('nothing here yet');
+  Article.findOne({slug: req.params.slug }, 'slug sanitizedHtml createdAt updatedAt category useCase')
+         .exec(function(err, article) {
+           if (err) return next(err);
+          res.render('article_detail', { article: article });
+         });
 };
 
 // Display Article create form on GET
