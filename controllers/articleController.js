@@ -10,7 +10,7 @@ exports.articles_list = function(req, res, next) {
   Article.find().exec(function(err, result) {
     if (err) next(err);
     res.render('articles_list', {
-      title: 'Articles List',
+      title: 'Articles',
       articles_list: result
     })
   })

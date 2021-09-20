@@ -17,6 +17,7 @@
     "express-validator": "^6.12.1",
     "http-errors": "~1.6.3",
     "jsdom": "^17.0.0",
+    "luxon": "^2.0.2",
     "marked": "^3.0.3",
     "mongoose": "^6.0.5",
     "morgan": "~1.9.1",
