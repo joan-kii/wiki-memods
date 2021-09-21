@@ -22,6 +22,8 @@ exports.articles_list = function(req, res, next) {
 // Display Article Detail
 exports.article_detail = function(req, res, next) {
   Article.findOne({slug: req.params.slug }, 'slug sanitizedHtml createdAt updatedAt category useCase')
+         .populate('category')
+         .populate('useCase')
          .exec(function(err, article) {
            if (err) return next(err);
           res.render('article_detail', { article: article });

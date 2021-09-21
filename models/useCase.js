@@ -16,11 +16,7 @@ const useCaseSchema = new Schema({
     type: String,
     required: true,
     unique: true
-  },
-  articles: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Article'
-  }]
+  }
 });
 
 useCaseSchema.pre('validate', function() {

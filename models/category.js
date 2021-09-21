@@ -16,11 +16,7 @@ const categorySchema = new Schema({
     type: String,
     required: true,
     unique: true
-  },
-  articles: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Article'
-  }]
+  }
 });
 
 categorySchema.pre('validate', function() {

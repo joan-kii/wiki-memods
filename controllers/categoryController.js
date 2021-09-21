@@ -1,8 +1,9 @@
 const Category = require('../models/category');
+const Article = require('../models/article');
 
+const mongoose = require('mongoose');
 const async = require('async');
 const { body, validationResult } = require('express-validator');
-
 
 // Display list all categories
 exports.categories_list = function(req, res, next) {
@@ -17,7 +18,20 @@ exports.categories_list = function(req, res, next) {
 
 // Display category Detail
 exports.category_detail = function(req, res, next) {
-  res.send('nothing here yet');
+
+  const id = mongoose.Types.ObjectId(req.params.id);
+  async.parallel({
+    category: function(callback) {
+      Category.findOne({slug: req.params.slug}, 'name description')
+              .exec(callback);
+    },
+    article_list: function(callback) {
+      Article.find({category: id}, 'title').exec(callback);
+    }
+  }, function(err, result) {
+    if (err) return next(err);
+    res.render('category_detail', { category: result.category, articles: result.article_list });
+  })
 };
 
 // Display category create form on GET
