@@ -18,19 +18,20 @@ exports.categories_list = function(req, res, next) {
 
 // Display category Detail
 exports.category_detail = function(req, res, next) {
-
-  const id = mongoose.Types.ObjectId(req.params.id);
-  async.parallel({
+  async.autoInject({
     category: function(callback) {
       Category.findOne({slug: req.params.slug}, 'name description')
               .exec(callback);
     },
-    article_list: function(callback) {
-      Article.find({category: id}, 'title').exec(callback);
+    article_list: function(category, callback) {
+      Article.find({category: category._id}, 'title slug').exec(callback);
     }
   }, function(err, result) {
     if (err) return next(err);
-    res.render('category_detail', { category: result.category, articles: result.article_list });
+    res.render('category_detail', { 
+      category: result.category, 
+      articles: result.article_list
+    });
   })
 };
 
