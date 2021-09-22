@@ -20,7 +20,7 @@ exports.categories_list = function(req, res, next) {
 exports.category_detail = function(req, res, next) {
   async.autoInject({
     category: function(callback) {
-      Category.findOne({slug: req.params.slug}, 'name description')
+      Category.findOne({slug: req.params.slug}, 'name description slug')
               .exec(callback);
     },
     article_list: function(category, callback) {
@@ -94,7 +94,14 @@ exports.category_delete_post = function(req, res, next) {
 };
 // Display category update form on GET
 exports.category_update_get = function(req, res, next) {
-  res.send('nothing here yet');
+  Category.findOne({ slug: req.params.slug }).exec(function(err, category) {
+    if (err) return next(err);
+    res.render('category_form', { 
+      title: 'Update Category',
+      category: category,
+      errors: err
+    })
+  })
 };
 
 // Handle category update form on POST

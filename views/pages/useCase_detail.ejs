@@ -4,17 +4,17 @@
     <%- include('../partials/sidebar'); %>
     <div class="col-sm-10 mt-5 mx-auto w-50 d-flex flex-column align-items-center">
       <h1 class="my-4 fs-2 text-center">
-        <%= category.name %> 
+        <%= useCase.name %> 
       </h1>
       <h6 class="mb-1 text-muted align-self-start">
         Description: 
       </h6>
       <p class="align-self-start">
-        <%= category.description %>
+        <%= useCase.description %>
       </p>
       <div class="my-4 card w-75">
         <div class="card-header">
-          Articles in <%= category.name %>
+          Articles in <%= useCase.name %>
         </div>
         <ul class="list-group list-group-flush">
           <% for (const article of articles) { %>
@@ -23,10 +23,6 @@
                 </li>
               <% } %>
         </ul>
-      </div>
-      <div class="mt-4 mb-2 btn-group btn-group-sm w-50 d-flex align-self-center">
-        <a href=<%= category.slug + '/update' %> class="btn btn-outline-primary">Update Category</a>
-        <a href=<%= category.slug + '/delete' %> class="btn btn-outline-danger">Delete Category</a>
       </div>
     </div>
   </div>

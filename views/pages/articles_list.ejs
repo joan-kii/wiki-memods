@@ -1,51 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <%- include('../partials/head'); %> 
-</head>
-<body class="d-flex flex-column min-vh-100">
-  <header>
-    <%- include('../partials/topbar'); %>
-  </header>
-  <div class="container-fluid">
-    <div class="row">
-      <%- include('../partials/sidebar'); %>
-      <div class="col-sm-10 mt-5 mx-auto w-75 d-flex flex-column align-items-center">
-        <h1 class="my-3 fs-2 text-center"><%= title %></h1>
-        <% for (const article of articles_list) { %>
-          <div class="my-3 card w-75">
-            <div class="card-header px-4"> 
-              <p class="mb-1 text-muted">Categories: 
-                <% const categoriesArray = []; %>
-                <% for (const category of article.category) { %>
-                <% categoriesArray.push(category.name) %>
-                <% } %>
-                <span class="fw-bold"><%= categoriesArray.join(', ') %></span>
-              </p>
-              <p class="mb-1 text-muted">Use Cases: 
-                <% const useCasesArray = []; %>
-                <% for (const useCase of article.useCase) { %>
-                <% useCasesArray.push(useCase.name) %>
-                <% } %>
-                <span class="fw-bold"><%= useCasesArray.join(', ') %></span>
-              </p>
-            </div>
-              <div class="card-body d-flex flex-column">
-                <h5 class="mb-4 card-title text-center text-uppercase text-decoration-underline"><%= article.title %></h5>
-                <p class="card-text"><%= article.description %></p>
-                <a href=<%= 'articles/' + article.slug %> class="btn btn-primary align-self-end">Read Article</a>
-              </div>
-              <% const options = { year: 'numeric', month: '2-digit', day: '2-digit' }; %>
-              <div class="d-flex justify-content-around card-footer">
-                <p class="text-muted">Created at: <span class="fw-bold"><%= article.createdAt.toLocaleString('en-US', options) %></span></p>
-                <p class="text-muted">Updated at: <span class="fw-bold"><%= article.updatedAt.toLocaleString('en-US', options) %></span></p> 
-              </div>
+<%- include('../partials/topbar'); %>
+<div class="container-fluid">
+  <div class="row">
+    <%- include('../partials/sidebar'); %>
+    <div class="col-sm-10 mt-5 mx-auto w-75 d-flex flex-column align-items-center">
+      <h1 class="my-3 fs-2 text-center"><%= title %></h1>
+      <% for (const article of articles_list) { %>
+        <div class="my-3 card w-75">
+          <div class="card-header px-4"> 
+            <p class="mb-1 text-muted">Categories: 
+              <% const categoriesArray = []; %>
+              <% for (const category of article.category) { %>
+              <% categoriesArray.push(category.name) %>
+              <% } %>
+              <span class="fw-bold"><%= categoriesArray.join(', ') %></span>
+            </p>
+            <p class="mb-1 text-muted">Use Cases: 
+              <% const useCasesArray = []; %>
+              <% for (const useCase of article.useCase) { %>
+              <% useCasesArray.push(useCase.name) %>
+              <% } %>
+              <span class="fw-bold"><%= useCasesArray.join(', ') %></span>
+            </p>
           </div>
-        <% } %>
-      </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="mb-4 card-title text-center text-uppercase text-decoration-underline"><%= article.title %></h5>
+              <p class="card-text"><%= article.description %></p>
+              <a href=<%= 'articles/' + article.slug %> class="btn btn-primary align-self-end">Read Article</a>
+            </div>
+            <% const options = { year: 'numeric', month: '2-digit', day: '2-digit' }; %>
+            <div class="d-flex justify-content-around card-footer">
+              <p class="text-muted">Created at: <span class="fw-bold"><%= article.createdAt.toLocaleString('en-US', options) %></span></p>
+              <p class="text-muted">Updated at: <span class="fw-bold"><%= article.updatedAt.toLocaleString('en-US', options) %></span></p> 
+            </div>
+        </div>
+      <% } %>
     </div>
   </div>
-  <%- include('../partials/footer'); %>
-</body>
-</html>
-
+</div>
+<%- include('../partials/footer'); %>

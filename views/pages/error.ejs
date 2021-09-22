@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <%- include('../partials/head'); %>
-</head>
-<body class="d-flex flex-column min-vh-100">
-  <h1><%= message %> </h1>
-  <h2><%= error.status %> </h2>
-  <pre><%= error.stack %> </pre>
-  <%- include('../partials/footer'); %>
-</body>
-</html>
+<%- include('../partials/topbar'); %>
+<h1><%= message %> </h1>
+<h2><%= error.status %> </h2>
+<pre><%= error.stack %> </pre>
+<%- include('../partials/footer'); %>

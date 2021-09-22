@@ -1,44 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <%- include('../partials/head'); %> 
-</head>
-<body class="d-flex flex-column min-vh-100">
-  <header>
-    <%- include('../partials/topbar'); %>
-  </header>
-  <div class="container-fluid">
-    <div class="row">
-      <%- include('../partials/sidebar'); %>
-      <div class="col-sm-10 mt-5 mx-auto w-75 d-flex flex-column align-items-center">
-        <div class="my-4 card w-75">
-          <div class="mt-4 mb-2 btn-group btn-group-sm w-50 d-flex align-self-center">
-            <a href=<%= article.slug + '/update' %> class="btn btn-outline-primary">Update Article</a>
-            <a href=<%= article.slug + '/delete' %> class="btn btn-outline-danger">Delete Article</a>
-          </div>
-          <div class="mx-auto card-body w-75">
-            <%- article.sanitizedHtml %>
-          </div>
-          <div class="card">
-            <ul class="list-group list-group-flush">
-              <% const categoriesArray = []; %>
-              <% for (const category of article.category) { %>
-                <% categoriesArray.push(category.name) %>
-                <% } %>
-                <li class="list-group-item fw-bold"><span class="text-muted">Categories: </span><%= categoriesArray.join(', ') %></li>
-              <% const useCasesArray = []; %>
-              <% for (const useCase of article.useCase) { %>
-                  <% useCasesArray.push(useCase.name) %>
-                  <% } %>
-              <li class="list-group-item fw-bold"><span class="text-muted">Use Case: </span><%= useCasesArray.join(', ') %></li>
-              <% const options = { year: 'numeric', month: '2-digit', day: '2-digit' }; %>
-              <li class="list-group-item fw-bold"><span class="text-muted">Created at: </span><%= article.createdAt.toLocaleString('en-US', options) %></li>
-              <li class="list-group-item fw-bold"><span class="text-muted">Updated at: </span><%= article.updatedAt.toLocaleString('en-US', options) %></li>
-            </ul>
-          </div>
+<%- include('../partials/topbar'); %>
+<div class="container-fluid">
+  <div class="row">
+    <%- include('../partials/sidebar'); %>
+    <div class="col-sm-10 mt-5 mx-auto w-75 d-flex flex-column align-items-center">
+      <div class="my-4 card w-75">
+        <div class="mt-4 mb-2 btn-group btn-group-sm w-50 d-flex align-self-center">
+          <a href=<%= article.slug + '/update' %> class="btn btn-outline-primary">Update Article</a>
+          <a href=<%= article.slug + '/delete' %> class="btn btn-outline-danger">Delete Article</a>
         </div>
-    </div>
+        <div class="mx-auto card-body w-75">
+          <%- article.sanitizedHtml %>
+        </div>
+        <div class="card">
+          <ul class="list-group list-group-flush">
+            <% const categoriesArray = []; %>
+            <% for (const category of article.category) { %>
+              <% categoriesArray.push(category.name) %>
+              <% } %>
+              <li class="list-group-item fw-bold"><span class="text-muted">Categories: </span><%= categoriesArray.join(', ') %></li>
+            <% const useCasesArray = []; %>
+            <% for (const useCase of article.useCase) { %>
+                <% useCasesArray.push(useCase.name) %>
+                <% } %>
+            <li class="list-group-item fw-bold"><span class="text-muted">Use Case: </span><%= useCasesArray.join(', ') %></li>
+            <% const options = { year: 'numeric', month: '2-digit', day: '2-digit' }; %>
+            <li class="list-group-item fw-bold"><span class="text-muted">Created at: </span><%= article.createdAt.toLocaleString('en-US', options) %></li>
+            <li class="list-group-item fw-bold"><span class="text-muted">Updated at: </span><%= article.updatedAt.toLocaleString('en-US', options) %></li>
+          </ul>
+        </div>
+      </div>
   </div>
-  <%- include('../partials/footer'); %>
-</body>
-</html>
+</div>
+<%- include('../partials/footer'); %>

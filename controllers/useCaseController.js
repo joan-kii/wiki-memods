@@ -1,4 +1,5 @@
 const UseCase = require('../models/useCase');
+const Article = require('../models/article');
 
 const async = require('async');
 const { body, validationResult } = require('express-validator');
@@ -16,7 +17,21 @@ exports.useCases_list = function (req, res, next) {
 
 // Display use Case Detail
 exports.useCase_detail = function(req, res, next) {
-  res.send('nothing here yet');
+  async.autoInject({
+    useCase: function(callback) {
+      UseCase.findOne({slug: req.params.slug}, 'name description')
+             .exec(callback);
+    },
+    article_list: function(useCase, callback) {
+      Article.find({useCase: useCase._id}, 'title slug').exec(callback);
+    }
+  }, function(err, result) {
+    if (err) return next(err);
+    res.render('useCase_detail', { 
+      useCase: result.useCase, 
+      articles: result.article_list
+    });
+  })
 };
 
 // Display use Case create form on GET
