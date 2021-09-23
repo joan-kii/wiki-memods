@@ -34,19 +34,19 @@
         <div class="mb-3">
           <label for="titleInput" class="mb-1 form_label">Title</label>
           <input name="title" type="text" class="form-control" id="titleInput" required=true
-            aria-describedby="titleHelp" value="<%= article === undefined ? '' : article.title %>">
+            aria-describedby="titleHelp" value="<%=  article?.title || '' %>">
           <div id="titleHelp" class="form-text">Give the article a meaningful name.</div>
         </div>
         <div class="mb-3">
           <label for="descriptionInput" class="mb-1 form_label">Description</label>
           <textarea name="description" type="text" class="form-control" id="descriptionInput" required=true
-            aria-describedby="descriptionHelp" value="<%= article === undefined ? '' : article.description %>"><%= article === undefined ? '' : article.description %></textarea>
+            aria-describedby="descriptionHelp" value=<%= article?.description || '' %>><%= article?.description || '' %></textarea>
           <div id="descriptionHelp" class="form-text">Write a brief description of the article.</div>
         </div>
         <div class="mb-3">
           <label for="markdownInput" class="mb-1 form_label">Markdown</label>
           <textarea name="markdown" type="text" class="form-control" id="markdownInput" required=true
-            aria-describedby="markdownHelp" rows="5" value="<%= article === undefined ? '' : article.markdown %>"><%= article === undefined ? '' : article.markdown %></textarea>
+            aria-describedby="markdownHelp" rows="5" value=<%= article?.markdown || '' %>><%= article?.markdown || '' %></textarea>
           <div id="markdownHelp" class="form-text">
             Use markdown to write the article. You can learm about markdown <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">here</a>.
           </div>

@@ -105,6 +105,33 @@ exports.category_update_get = function(req, res, next) {
 };
 
 // Handle category update form on POST
-exports.category_update_post = function(req, res, next) {
-  res.send('nothing here yet');
-};
+exports.category_update_post = [
+  body('name', 'Category name required')
+      .trim()
+      .isLength({min: 1})
+      .escape(),
+  body('description', 'A brief category description is required')
+      .trim()
+      .isLength({min: 30})
+      .escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const category = {
+      name: req.body.name,
+      description: req.body.description
+    };
+    if (!errors.isEmpty()) {
+      res.render('category_form', {
+        title: 'Update Category',
+        erros: errors.array()
+      })
+      return;
+    } else {
+      Category.findOneAndUpdate({slug: req.params.slug}, category, {}, function(err, category) {
+        if (err) return next(err);
+        console.log(category.slug)
+        res.redirect(`../${category.slug}`);
+      })
+    }
+  }
+];

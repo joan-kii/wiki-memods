@@ -10,13 +10,13 @@
         <div class="mb-3">
           <label for="useCaseNameInput" class="mb-1 form_label">Use Case</label>
           <input name="name" type="text" class="form-control" id="useCaseNameInput" required=true
-            aria-describedby="nameHelp" value="<%= useCase === undefined ? '' : useCase.name %>">
+            aria-describedby="nameHelp" value="<%= useCase?.name || '' %>">
           <div id="nameHelp" class="form-text">Think of a use case for some mental model.</div>
         </div>
         <div class="mb-3">
           <label for="useCaseDescriptionInput" class="mb-1 form_label">Use Case Description</label>
           <textarea name="description" type="text" class="form-control" id="useCaseDescriptionInput" required=true
-            aria-describedby="descriptionHelp" value="<%= useCase === undefined ? '' : useCase.description %>"></textarea>
+            aria-describedby="descriptionHelp" value=<%= useCase?.description || '' %>></textarea>
           <div id="descriptionHelp" class="form-text">Explanation of the use case.</div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
