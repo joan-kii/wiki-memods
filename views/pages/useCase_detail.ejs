@@ -6,6 +6,7 @@
       <h1 class="my-4 fs-2 text-center">
         <%= useCase.name %> 
       </h1>
+      <% console.log(useCase) %>
       <h6 class="mb-1 text-muted align-self-start">
         Description: 
       </h6>
@@ -18,11 +19,15 @@
         </div>
         <ul class="list-group list-group-flush">
           <% for (const article of articles) { %>
-                <li class="list-group-item">
-                  <a href=<%= '/articles/' + article.slug %>><%= article.title %></a>
-                </li>
-              <% } %>
+            <li class="list-group-item">
+              <a href=<%= '/articles/' + article.slug %>><%= article.title %></a>
+            </li>
+          <% } %>
         </ul>
+      </div>
+      <div class="mt-4 mb-2 btn-group btn-group-sm w-50 d-flex align-self-center">
+        <a href=<%= useCase.slug + '/update' %> class="btn btn-outline-primary">Update Use Case</a>
+        <a href=<%= useCase.slug + '/delete' %> class="btn btn-outline-danger">Delete Use Case</a>
       </div>
     </div>
   </div>

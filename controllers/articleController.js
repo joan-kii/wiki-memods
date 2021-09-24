@@ -21,7 +21,7 @@ exports.articles_list = function(req, res, next) {
 
 // Display Article Detail
 exports.article_detail = function(req, res, next) {
-  Article.findOne({slug: req.params.slug }, 'slug sanitizedHtml createdAt updatedAt category useCase')
+  Article.findOne({slug: req.params.slug }, 'slug sanitizedHtml createdAt updatedAt category useCase markdown')
          .populate('category')
          .populate('useCase')
          .exec(function(err, article) {
@@ -109,7 +109,27 @@ exports.article_delete_post = function(req, res, next) {
 };
 // Display Article update form on GET
 exports.article_update_get = function(req, res, next) {
-  res.send('nothing here yet');
+  async.parallel({
+    article: function(callback) {
+      Article.findOne({ slug: req.params.slug }).exec(callback);
+    },
+    category_list: function(callback) {
+      Category.find().exec(callback);
+    },
+    useCases_list: function(callback) {
+      UseCase.find().exec(callback);
+    }
+  }, function(err, result) {
+    if (err) return next(err);
+    res.render('article_form', { 
+      title: 'Update Article',
+      article: result.article,
+      category_list: result.category_list,
+      useCases_list: result.useCases_list,
+      errors: result.err
+      })
+    }
+  )
 };
 
 // Handle Article update form on POST

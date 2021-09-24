@@ -100,7 +100,7 @@ exports.category_update_get = function(req, res, next) {
       title: 'Update Category',
       category: category,
       errors: err
-    })
+    });
   })
 };
 
@@ -129,7 +129,6 @@ exports.category_update_post = [
     } else {
       Category.findOneAndUpdate({slug: req.params.slug}, category, {}, function(err, category) {
         if (err) return next(err);
-        console.log(category.slug)
         res.redirect(`../${category.slug}`);
       })
     }

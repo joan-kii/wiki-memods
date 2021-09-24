@@ -16,7 +16,7 @@
         <div class="mb-3">
           <label for="useCaseDescriptionInput" class="mb-1 form_label">Use Case Description</label>
           <textarea name="description" type="text" class="form-control" id="useCaseDescriptionInput" required=true
-            aria-describedby="descriptionHelp" value=<%= useCase?.description || '' %>></textarea>
+            aria-describedby="descriptionHelp" value="<%= useCase?.description || '' %>"><%= useCase?.description || '' %></textarea>
           <div id="descriptionHelp" class="form-text">Explanation of the use case.</div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

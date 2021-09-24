@@ -19,7 +19,7 @@ exports.useCases_list = function (req, res, next) {
 exports.useCase_detail = function(req, res, next) {
   async.autoInject({
     useCase: function(callback) {
-      UseCase.findOne({slug: req.params.slug}, 'name description')
+      UseCase.findOne({slug: req.params.slug}, 'name description slug')
              .exec(callback);
     },
     article_list: function(useCase, callback) {
@@ -93,10 +93,43 @@ exports.useCase_delete_post = function(req, res, next) {
 };
 // Display use Case update form on GET
 exports.useCase_update_get = function(req, res, next) {
-  res.send('nothing here yet');
+  UseCase.findOne({ slug: req.params.slug }).exec(function(err, useCase) {
+    if (err) return next(err);
+    res.render('useCase_form', { 
+      title: 'Update Use Case',
+      useCase: useCase,
+      errors: err
+    });
+  })
 };
 
 // Handle use Case update form on POST
-exports.useCase_update_post = function(req, res, next) {
-  res.send('nothing here yet');
-};
+exports.useCase_update_post = [
+  body('name', 'Use Case name required')
+      .trim()
+      .isLength({min: 1})
+      .escape(),
+  body('description', 'A brief use case description is required')
+      .trim()
+      .isLength({min: 30})
+      .escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const useCase = {
+      name: req.body.name,
+      description: req.body.description
+    };
+    if (!errors.isEmpty()) {
+      res.render('useCase_form', {
+        title: 'Update Use Case',
+        erros: errors.array()
+      })
+      return;
+    } else {
+      UseCase.findOneAndUpdate({slug: req.params.slug}, useCase, {}, function(err, useCase) {
+        if (err) return next(err);
+        res.redirect(`../${useCase.slug}`);
+      })
+    }
+  }
+];

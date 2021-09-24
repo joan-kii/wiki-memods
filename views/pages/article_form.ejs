@@ -6,12 +6,13 @@
       <h1 class="my-3 fs-2 text-center">
         <%= title %> 
       </h1>
+      <% console.log(article.category) %>
       <form method="POST" action="" class="p-3 w-50 border rounded">
         <div class="mb-3">
           <label for="categorySelect" class="mb-1 form_label">Category</label>
           <select class="form-select" id="categorySelect" name='category' multiple aria-label="Category" aria-describedby="categoryHelp">
             <% for (const category of category_list) { %>
-              <option value="<%= category.id %>"><%= category.name %></option>
+              <option value="<%= category.id %>" selected="<%= category.id === article.category%>"><%= category.name %></option>
             <% } %>
           </select>
           <div class="d-flex justify-content-between">
