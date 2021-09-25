@@ -1,7 +1,6 @@
 const Category = require('../models/category');
 const Article = require('../models/article');
 
-const mongoose = require('mongoose');
 const async = require('async');
 const { body, validationResult } = require('express-validator');
 
@@ -40,7 +39,8 @@ exports.category_create_get = function(req, res, next) {
   res.render('category_form', {
     title: 'Create a new category', 
     category: undefined,
-    errors: undefined
+    errors: undefined,
+    isUpdating: false
   });
 };
 
@@ -99,7 +99,8 @@ exports.category_update_get = function(req, res, next) {
     res.render('category_form', { 
       title: 'Update Category',
       category: category,
-      errors: err
+      errors: err, 
+      isUpdating: true
     });
   })
 };
@@ -114,8 +115,14 @@ exports.category_update_post = [
       .trim()
       .isLength({min: 30})
       .escape(),
+  body('password', 'Admin password required')
+      .trim()
+      .isLength({min: 1})
+      .escape(),
   (req, res, next) => {
     const errors = validationResult(req);
+    console.log(errors)
+    const isAdmin = req.body.password === process.env.ADMIN_PASSWORD;
     const category = {
       name: req.body.name,
       description: req.body.description
@@ -123,7 +130,13 @@ exports.category_update_post = [
     if (!errors.isEmpty()) {
       res.render('category_form', {
         title: 'Update Category',
-        erros: errors.array()
+        errors: errors.array()
+      })
+      return;
+    } else if (!isAdmin) {
+      res.render('category_form', {
+        title: 'Update Category',
+        errors: new Error('Wrong Password')
       })
       return;
     } else {

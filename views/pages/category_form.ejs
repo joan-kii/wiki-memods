@@ -8,24 +8,32 @@
       </h1>
       <form method="POST" action="" class="p-3 w-50 border rounded">
         <div class="mb-3">
-          <label for="categoryNameInput" class="mb-1 form_label">Category Name</label>
+          <label for="categoryNameInput" class="mb-1 form-label">Category Name</label>
           <input name="name" type="text" class="form-control" id="categoryNameInput" required=true
             aria-describedby="nameHelp" value="<%= category?.name || '' %>">
           <div id="nameHelp" class="form-text">Give the category a meaningful name.</div>
         </div>
         <div class="mb-3">
-          <label for="categoryDescriptionInput" class="mb-1 form_label">Category Description</label>
+          <label for="categoryDescriptionInput" class="mb-1 form-label">Category Description</label>
           <textarea name="description" type="text" class="form-control" id="categoryDescriptionInput" required=true
             aria-describedby="descriptionHelp" value="<%= category?.description || '' %>"><%= category?.description || '' %></textarea>
           <div id="descriptionHelp" class="form-text">Add a short description.</div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <% if (isUpdating) { %> 
+          <div class="mb-3">
+            <label for="passwordInput" class="mb-1 form-label">Admin Password</label>
+            <input name="password" type="password" class="form-control" id="passwordInput" required=true
+              aria-describedby="passwordHelp">
+            <div id="passwordHelp" class="form-text">Enter your admin password.</div>
+          </div>
+        <% } %> 
+        <button type="submit" class="btn btn-primary"><%= isUpdating ? "Update Category" : "Create Category" %></button>
       </form>
       <div>
         <% if (errors) { %>
           <ul>
             <% errors.forEach(function(error) { %>
-              <li><%= error%></li>
+              <li><%= error %></li>
             <% })%>
           </ul>
           <p>Please, try again later.</p>

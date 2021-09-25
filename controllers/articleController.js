@@ -133,6 +133,33 @@ exports.article_update_get = function(req, res, next) {
 };
 
 // Handle Article update form on POST
-exports.article_update_post = function(req, res, next) {
-  res.send('nothing here yet');
-};
+exports.article_update_post = [
+  body('category'),
+  body('useCase'),
+  body('title', 'Title must not be empty.').trim().isLength({min: 1}).escape(),
+  body('description', 'Description must not be empty.').trim().isLength({min: 1}).escape(),
+  body('markdown', 'Markdown must not be empty.').trim().isLength({min: 1}).escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const article = {
+      category: req.body.category,
+      useCase: req.body.useCase,
+      title: req.body.title,
+      description: req.body.description,
+      markdown: req.body.markdown,
+      updatedAt: Date.now()
+    };
+    if (!errors.isEmpty()) {
+      res.render('article_form', {
+        title: 'Update Article',
+        erros: errors.array()
+      })
+      return;
+    } else {
+      Article.findOneAndUpdate({slug: req.params.slug}, article, {}, function(err, article) {
+        if (err) return next(err);
+        res.redirect(`../${article.slug}`);
+      })
+    }
+  }
+];
