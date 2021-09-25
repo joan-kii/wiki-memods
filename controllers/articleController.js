@@ -126,7 +126,9 @@ exports.article_update_get = function(req, res, next) {
       article: result.article,
       category_list: result.category_list,
       useCases_list: result.useCases_list,
-      errors: result.err
+      errors: result.err,
+      isUpdating: true,
+      isAdmin: '',
       })
     }
   )
@@ -139,27 +141,38 @@ exports.article_update_post = [
   body('title', 'Title must not be empty.').trim().isLength({min: 1}).escape(),
   body('description', 'Description must not be empty.').trim().isLength({min: 1}).escape(),
   body('markdown', 'Markdown must not be empty.').trim().isLength({min: 1}).escape(),
+  body('password', 'Admin password required').trim().isLength({min: 1}).escape(),
   (req, res, next) => {
-    const errors = validationResult(req);
-    const article = {
-      category: req.body.category,
-      useCase: req.body.useCase,
-      title: req.body.title,
-      description: req.body.description,
-      markdown: req.body.markdown,
-      updatedAt: Date.now()
-    };
-    if (!errors.isEmpty()) {
-      res.render('article_form', {
-        title: 'Update Article',
-        erros: errors.array()
-      })
+    const isAdmin = req.body.password === process.env.ADMIN_PASSWORD;
+    if (!isAdmin) {
+      let err = new Error("The password you entered is incorrect.");
+      err.status = 401;
+      res.render('error', {error: err, message: 'The password you entered is incorrect.'});
       return;
     } else {
-      Article.findOneAndUpdate({slug: req.params.slug}, article, {}, function(err, article) {
-        if (err) return next(err);
-        res.redirect(`../${article.slug}`);
-      })
+      const errors = validationResult(req);
+      const article = {
+        category: req.body.category,
+        useCase: req.body.useCase,
+        title: req.body.title,
+        description: req.body.description,
+        markdown: req.body.markdown,
+        updatedAt: Date.now()
+      };
+      if (!errors.isEmpty()) {
+        res.render('article_form', {
+          title: 'Update Article',
+          article: article,
+          erros: errors.array()
+        })
+        return;
+      } else {
+        Article.findOneAndUpdate({slug: req.params.slug}, article, {}, function(err, article) {
+          if (err) return next(err);
+          console.log('superlol')
+          res.redirect(`../${article.slug}`);
+        })
+      }
     }
   }
 ];

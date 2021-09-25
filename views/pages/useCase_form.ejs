@@ -19,17 +19,30 @@
             aria-describedby="descriptionHelp" value="<%= useCase?.description || '' %>"><%= useCase?.description || '' %></textarea>
           <div id="descriptionHelp" class="form-text">Explanation of the use case.</div>
         </div>
+        <% if (isUpdating) { %> 
+          <div class="mb-3">
+            <label for="passwordInput" class="mb-1 form-label">Admin Password</label>
+            <input name="password" type="password" class="form-control" id="passwordInput" required=true
+              aria-describedby="passwordHelp">
+            <div id="passwordHelp" class="form-text">Enter your admin password.</div>
+          </div>
+        <% } %> 
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+      <div class="mt-2">
+        <% if (isAdmin) { %>
+          <p>Incorrect password.</p>
+        <% } %> 
+      </div>
       <div>
         <% if (errors) { %>
           <ul>
             <% errors.forEach(function(error) { %>
               <li><%= error %></li>
-            <% }) %>
+            <% })%>
           </ul>
-          <p>Please, try again later.</p>
-        <% } %>
+          <p>Please, try it again.</p>
+        <% }%>
       </div>
     </div>
   </div>

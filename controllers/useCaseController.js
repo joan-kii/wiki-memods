@@ -98,7 +98,9 @@ exports.useCase_update_get = function(req, res, next) {
     res.render('useCase_form', { 
       title: 'Update Use Case',
       useCase: useCase,
-      errors: err
+      isUpdating: true,
+      errors: err,
+      isAdmin: '',
     });
   })
 };
@@ -113,8 +115,13 @@ exports.useCase_update_post = [
       .trim()
       .isLength({min: 30})
       .escape(),
+  body('password', 'Admin password required')
+      .trim()
+      .isLength({min: 1})
+      .escape(),
   (req, res, next) => {
     const errors = validationResult(req);
+    const isAdmin = req.body.password === process.env.ADMIN_PASSWORD;
     const useCase = {
       name: req.body.name,
       description: req.body.description
@@ -122,7 +129,19 @@ exports.useCase_update_post = [
     if (!errors.isEmpty()) {
       res.render('useCase_form', {
         title: 'Update Use Case',
-        erros: errors.array()
+        useCase: useCase,
+        isUpdating: true,
+        isAdmin: '',
+        errors: errors.array()
+      })
+      return;
+    } else if (!isAdmin) {
+      res.render('useCase_form', {
+        title: 'Update Use Case',
+        useCase: useCase,
+        isUpdating: true,
+        errors: errors.array(),
+        isAdmin: 'Incorrect password. Try it again.'
       })
       return;
     } else {

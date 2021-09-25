@@ -1,5 +1,14 @@
 <%- include('../partials/topbar'); %>
-<h1><%= message %> </h1>
-<h2><%= error.status %> </h2>
-<pre><%= error.stack %> </pre>
+<main>
+    <div class="container-fluid">
+      <div class="row">
+        <%- include('../partials/sidebar'); %>
+        <div class="col-sm-10 mt-5 mx-auto w-50 d-flex flex-column">
+          <h1 class="mt-5 fs-2 text-center"><%= message %></h1>
+          <hr>
+          <button id="goBack" class="btn btn-primary w-25 align-self-center" onclick="window.history.back();">Go back</button>
+        </div>
+      </div>
+    </div>
+  </main>
 <%- include('../partials/footer'); %>

@@ -100,7 +100,8 @@ exports.category_update_get = function(req, res, next) {
       title: 'Update Category',
       category: category,
       errors: err, 
-      isUpdating: true
+      isUpdating: true,
+      isAdmin: '',
     });
   })
 };
@@ -121,7 +122,6 @@ exports.category_update_post = [
       .escape(),
   (req, res, next) => {
     const errors = validationResult(req);
-    console.log(errors)
     const isAdmin = req.body.password === process.env.ADMIN_PASSWORD;
     const category = {
       name: req.body.name,
@@ -130,13 +130,19 @@ exports.category_update_post = [
     if (!errors.isEmpty()) {
       res.render('category_form', {
         title: 'Update Category',
+        category: category,
+        isUpdating: true,
+        isAdmin: '',
         errors: errors.array()
       })
       return;
     } else if (!isAdmin) {
       res.render('category_form', {
         title: 'Update Category',
-        errors: new Error('Wrong Password')
+        category: category,
+        isUpdating: true,
+        errors: errors.array(),
+        isAdmin: 'Incorrect password. Try it again.'
       })
       return;
     } else {
