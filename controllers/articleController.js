@@ -46,7 +46,9 @@ exports.article_create_get = function(req, res, next) {
       article: undefined,
       errors: undefined,
       category_list: result.category_list,
-      useCases_list: result.useCases_list
+      useCases_list: result.useCases_list,
+      isUpdating: false,
+      isAdmin: ''
       })
     }
   )
@@ -169,7 +171,6 @@ exports.article_update_post = [
       } else {
         Article.findOneAndUpdate({slug: req.params.slug}, article, {}, function(err, article) {
           if (err) return next(err);
-          console.log('superlol')
           res.redirect(`../${article.slug}`);
         })
       }

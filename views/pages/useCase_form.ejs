@@ -27,7 +27,7 @@
             <div id="passwordHelp" class="form-text">Enter your admin password.</div>
           </div>
         <% } %> 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary"><%= isUpdating ? "Update Use Case" : "Create Use Case" %></button>
       </form>
       <div class="mt-2">
         <% if (isAdmin) { %>

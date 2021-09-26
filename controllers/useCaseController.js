@@ -39,8 +39,10 @@ exports.useCase_create_get = function(req, res, next) {
   res.render('useCase_form', {
     title: 'Create a new Use Case', 
     useCase: undefined,
-    errors: undefined
-  })
+    errors: undefined,
+    isUpdating: false,
+    isAdmin: ''
+  });
 };
 
 // Handle use Case create form on POST

@@ -4,14 +4,14 @@
     <%- include('../partials/sidebar'); %>
     <div class="col-sm-10 my-5 mx-auto d-flex flex-column align-items-center">
       <h1 class="my-3 fs-2 text-center">
-        <%= title %>: <%= article.title %> 
+        <%= title %>: <%= article?.title %> 
       </h1>
       <form method="POST" action="" class="p-3 w-50 border rounded">
         <div class="mb-3">
           <label for="categorySelect" class="mb-1 form-label">Category</label>
           <select class="form-select" id="categorySelect" name='category' multiple aria-label="Category" aria-describedby="categoryHelp">
             <% for (const category of category_list) { %>
-              <option value="<%= category.id %>" <%= category.id === article.category.toString() ? "selected" : "" %>><%= category.name %></option>
+              <option value="<%= category.id %>" <%= category.id === article?.category.toString() ? "selected" : "" %>><%= category.name %></option>
             <% } %>
           </select>
           <div class="d-flex justify-content-between">
@@ -23,7 +23,7 @@
           <label for="useCaseSelect" class="mb-1 form-label">Use Case</label>
           <select class="form-select" id="useCaseSelect" name="useCase" multiple aria-label="Use Case" aria-describedby="useCaseHelp">
             <% for (const useCase of useCases_list) { %>
-              <option value="<%= useCase.id %>" <%= useCase.id === article.useCase.toString() ? "selected" : "" %>><%= useCase.name %></option>
+              <option value="<%= useCase.id %>" <%= useCase.id === article?.useCase.toString() ? "selected" : "" %>><%= useCase.name %></option>
             <% } %>
           </select>
           <div class="d-flex justify-content-between">
