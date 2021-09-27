@@ -106,20 +106,25 @@ exports.category_delete_post = [
       .escape(),
   (req, res, next) => {
     const errors = validationResult(req);
-    console.log(req)
     const isAdmin = req.body.password === process.env.ADMIN_PASSWORD;
     if (!errors.isEmpty()) {
-      res.render('category_delete', {
-        title: 'Delete Category',
-        category: undefined,
-        isAdmin: ''
+      Category.findOne({ slug: req.params.slug}).exec(function(err, category) {
+        if (err) return next(err);
+        res.render('category_delete', {
+          title: 'Delete Category: ',
+          category: category,
+          isAdmin: ''
+        })
       })
       return;
     } else if (!isAdmin) {
-      res.render('category_delete', {
-        title: 'Delete Category',
-        category: undefined,
-        isAdmin: 'Incorrect password. Try it again.'
+      Category.findOne({ slug: req.params.slug}).exec(function(err, category) {
+        if (err) return next(err);
+        res.render('category_delete', {
+          title: 'Delete Category: ',
+          category: category,
+          isAdmin: 'Incorrect password. Try it again.'
+        })
       })
       return;
     } else {

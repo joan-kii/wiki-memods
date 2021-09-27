@@ -102,13 +102,54 @@ exports.article_create_post = [
 
 // Display Article delete form on GET
 exports.article_delete_get = function(req, res, next) {
-  res.send('nothing here yet');
+  Article.findOne({ slug: req.params.slug}).exec(function(err, article) {
+    if (err) return next(err);
+    res.render('article_delete', {
+      title: 'Delete Article: ',
+      article: article,
+      isAdmin: ''
+    });
+  })
 };
 
 // Handle Article delete form on POST
-exports.article_delete_post = function(req, res, next) {
-  res.send('nothing here yet');
-};
+exports.article_delete_post = [
+  body('password', 'Admin password required')
+      .trim()
+      .isLength({min: 1})
+      .escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const isAdmin = req.body.password === process.env.ADMIN_PASSWORD;
+    if (!errors.isEmpty()) {
+      Article.findOne({ slug: req.params.slug}).exec(function(err, article) {
+        if (err) return next(err);
+        res.render('article_delete', {
+          title: 'Delete Article: ',
+          article: article,
+          isAdmin: ''
+        })
+      })
+      return;
+    } else if (!isAdmin) {
+      Article.findOne({ slug: req.params.slug}).exec(function(err, article) {
+        if (err) return next(err);
+        res.render('article_delete', {
+          title: 'Delete Article: ',
+          article: article,
+          isAdmin: 'Incorrect password. Try it again.'
+        })
+      })
+      return;
+    } else {
+      Article.findOneAndRemove({slug: req.params.slug}, function(err) {
+        if (err) return next(err);
+        res.redirect('/articles');
+      })
+    }
+  }
+];
+
 // Display Article update form on GET
 exports.article_update_get = function(req, res, next) {
   async.parallel({

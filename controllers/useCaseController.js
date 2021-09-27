@@ -86,13 +86,54 @@ exports.useCase_create_post = [
 
 // Display use Case delete form on GET
 exports.useCase_delete_get = function(req, res, next) {
-  res.send('nothing here yet');
+  UseCase.findOne({ slug: req.params.slug}).exec(function(err, useCase) {
+    if (err) return next(err);
+    res.render('useCase_delete', {
+      title: 'Delete Use Case: ',
+      useCase: useCase,
+      isAdmin: ''
+    });
+  })
 };
 
 // Handle use Case delete form on POST
-exports.useCase_delete_post = function(req, res, next) {
-  res.send('nothing here yet');
-};
+exports.useCase_delete_post = [
+  body('password', 'Admin password required')
+      .trim()
+      .isLength({min: 1})
+      .escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const isAdmin = req.body.password === process.env.ADMIN_PASSWORD;
+    if (!errors.isEmpty()) {
+      UseCase.findOne({ slug: req.params.slug}).exec(function(err, useCase) {
+        if (err) return next(err);
+        res.render('seCase_delete', {
+          title: 'Delete Use Case: ',
+          useCase: useCase,
+          isAdmin: ''
+        })
+      })
+      return;
+    } else if (!isAdmin) {
+      UseCase.findOne({ slug: req.params.slug}).exec(function(err, useCase) {
+        if (err) return next(err);
+        res.render('useCase_delete', {
+          title: 'Delete Use Case: ',
+          useCase: useCase,
+          isAdmin: 'Incorrect password. Try it again.'
+        })
+      })
+      return;
+    } else {
+      UseCase.findOneAndRemove({slug: req.params.slug}, function(err) {
+        if (err) return next(err);
+        res.redirect('/use-cases');
+      })
+    }
+  }
+];
+
 // Display use Case update form on GET
 exports.useCase_update_get = function(req, res, next) {
   UseCase.findOne({ slug: req.params.slug }).exec(function(err, useCase) {

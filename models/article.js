@@ -4,7 +4,6 @@ const slugify = require('slugify');
 const createDomPurify = require('dompurify');
 const { JSDOM } = require('jsdom'); 
 const dompurify = createDomPurify(new JSDOM().window);
-const { DateTime } = require('luxon');
 
 const Schema = mongoose.Schema;
 
@@ -21,16 +20,16 @@ const articleSchema = new Schema({
   markdown: {
     type: String,
     required: true,
-    minLength: 100
+    minLength: 10
   },
   createdAt: {
     type: Date,
-    default: DateTime.fromJSDate(Date.now).toLocaleString(DateTime.DATE_MED),
+    default: Date.now(),
     required: true
   },
   updatedAt: {
     type: Date,
-    default: DateTime.fromJSDate(Date.now).toLocaleString(DateTime.DATE_MED),
+    default: Date.now(),
     required: true
   },
   slug: {
