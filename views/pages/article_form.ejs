@@ -2,11 +2,11 @@
 <div class="container-fluid">
   <div class="row">
     <%- include('../partials/sidebar'); %>
-    <div class="col-sm-10 my-5 mx-auto d-flex flex-column align-items-center">
+    <div class="col-sm-10 my-2 my-md-5 mx-auto d-flex flex-column align-items-center">
       <h1 class="my-3 fs-2 text-center">
         <%= title %>: <%= article?.title %> 
       </h1>
-      <form method="POST" action="" class="p-3 w-50 border rounded">
+      <form method="POST" action="" class="p-3 w-75 border rounded">
         <div class="mb-3">
           <label for="categorySelect" class="mb-1 form-label">Category</label>
           <select class="form-select" id="categorySelect" name='category' multiple aria-label="Category" aria-describedby="categoryHelp">
@@ -15,7 +15,7 @@
             <% } %>
           </select>
           <div class="d-flex justify-content-between">
-            <div id="categoryHelp" class="form-text">Ctrl+click or Cmd+click to choose more than one category.</div>
+            <div id="categoryHelp" class="form-text">Ctrl/Cmd+click to choose more than one category.</div>
             <a class="mt-1 btn btn-secondary btn-sm" href="/category/create" role="button">Create new category</a>
           </div>
         </div>
@@ -27,7 +27,7 @@
             <% } %>
           </select>
           <div class="d-flex justify-content-between">
-            <div id="useCaseHelp" class="form-text">Ctrl+click or Cmd+click to choose more than one use case.</div>
+            <div id="useCaseHelp" class="form-text">Ctrl/Cmd+click to choose more than one use case.</div>
             <a class="mt-1 btn btn-secondary btn-sm" href="/use-case/create" role="button">Create new use case</a>
           </div>
         </div>

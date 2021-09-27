@@ -4,12 +4,17 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
+const compression = require('compression');
+const helmet = require('helmet');
 
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 
 var app = express();
+
+app.use(compression());
+app.use(helmet());
 
 // Set up mongoose conection
 const mongoDB = process.env.MONGODB_URI;
