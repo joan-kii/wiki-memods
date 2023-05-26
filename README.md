@@ -1,4 +1,4 @@
-## [Live Demo]([https://joan-kii.github.io/shopping-cart/](https://calm-brushlands-83436.onrender.com/)
+## [Live Demo](https://calm-brushlands-83436.onrender.com/)
 
 ## Overview
 This is an exercise for The Odin Project's JavaScript path that emulates a wiki website for creating and sharing mental models.
