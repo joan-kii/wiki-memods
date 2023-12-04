@@ -8,6 +8,9 @@ If you are interesed in learn more about how mental models can help you make bet
   - Express
   - MongoDB
   - EJS
+  - Jest
+  - Supertest
+
 
 ## Styles
   - Bootstrap
