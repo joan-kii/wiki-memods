@@ -6,7 +6,7 @@ describe('Unit testing the /articles route', function() {
     return request(app)
       .get('/articles')
       .then(function(response){
-        expect(response.text).toContain('Articles')
+        expect(response.text).toContain('Nope')
       })
   })
 })
