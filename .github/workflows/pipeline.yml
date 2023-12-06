@@ -20,7 +20,8 @@ jobs:
         run: npm run eslint
 
       - name: Start
-        env: ${{ vars.MONGODB_URI }}
+        env: 
+          MONGODB_URI: ${{ vars.MONGODB_URI }}
         run: npm start
 
       - name: Test
