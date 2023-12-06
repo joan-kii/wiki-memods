@@ -24,6 +24,13 @@ jobs:
       - name: Test
         run: npm run test
 
+      - name: e2e tests
+        uses: cypress-io/github-action@v5
+        with:
+          command: npm run test:e2e
+          start: npm start
+          wait-on: http://localhost:3000
+
       - name: Deploy
         env:
           deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
