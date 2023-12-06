@@ -1,0 +1,41 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test_schedule:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check App Health
+      uses: jtalk/url-health-check-action@fc2fe2a9ca9c9734d992431b749b79350d771fbb
+      with:
+        url: https://wiki-memods.onrender.com
+        max-attempts: 3
+        retry-delay: 10s
+
+    - name: Health Check Success
+      uses: rjstone/discord-webhook-notify@1399c1b2d57cc05894d506d2cfdc33c5f012b993
+      if: ${{ success() }}
+      with:
+        severity: info
+        username: joankii
+        avatarUrl: https://avatars.githubusercontent.com/u/59319203?v=4
+        description: Health check succeed
+        details: To https://wiki-memods.onrender.com by ${{ github.actor }}
+        text: Health check
+        footer: 'Severity: Informational'
+        webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+    - name: Build Failure
+      uses: rjstone/discord-webhook-notify@1399c1b2d57cc05894d506d2cfdc33c5f012b993
+      if: ${{ failure() }}
+      with:
+        severity: error
+        username: joankii
+        avatarUrl: https://avatars.githubusercontent.com/u/59319203?v=4
+        description: Health check failed
+        details: Commit ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }} by ${{ github.actor }} broke the app health :(
+        text: Health check failed
+        footer: 'Severity: Error'
+        webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
